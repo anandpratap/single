@@ -1,0 +1,5 @@
+*.o
+*_bq.f90
+*.mod
+single
+*~
