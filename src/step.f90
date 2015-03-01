@@ -27,8 +27,8 @@
 		end do
 		
 		! RHS calculation
-		do i=1, nc
-			do j=1, 3
+		do j=1, 3
+			do i=1, nc
 				b(3*(i-1) +j) = res(i, j)
 			end do
 		end do
@@ -37,8 +37,8 @@
 		call dgesv(3*nc, 1, jac, 3*nc, pivot, b, 3*nc, ok)
 	
 		! delta q
-		do i=1, nc
-			do j=1, 3
+		do j=1, 3
+			do i=1, nc
 				dq(i,j) = b(3*(i-1) +j)
 			end do
 		end do
@@ -49,6 +49,7 @@
 		l2norm = 0.0
 		do i=1, nc
 			l2norm = l2norm + res(i,1)**2
+		!	print *, i, l2norm, res(i,1)
 		end do
 		l2norm = sqrt(l2norm)/nc
 	end subroutine step

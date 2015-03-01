@@ -15,6 +15,14 @@
 		real :: To, cp, rat, T
 
 		if(idx .eq. 1) then
+			do i=1, 2
+				rdx = i
+				call sigma(xc(rdx), A, dAdx, alpha)
+				rho(rdx+1) = q(rdx,1)/A;
+				u(rdx+1) = q(rdx,2)/rho(rdx+1)/A;
+				p(rdx+1) = (q(rdx,3)/A - 0.5*rho(rdx+1)*u(rdx+1)*u(rdx+1))*(gamma-1);
+			end do
+
 			u(1) = u(2)
 			To = po/rhoo/R
 			cp = gamma*R/(gamma-1)
@@ -23,18 +31,8 @@
 			rho(1) = rhoo*rat**(1/(gamma-1))
 			p(1) = po*rat**(gamma/(gamma-1))
 
-			do i=1, 2
-				rdx = i
-				call sigma(xc(rdx), A, dAdx, alpha)
-				rho(rdx+1) = q(rdx,1)/A;
-				u(rdx+1) = q(rdx,2)/rho(rdx+1)/A;
-				p(rdx+1) = (q(rdx,3)/A - 0.5*rho(rdx+1)*u(rdx+1)*u(rdx+1))*(gamma-1);
-			end do
 		else if(idx .eq. nc) then
-			rho(3) = rho(2);
-			u(3) = u(2);
-			p(3) = pout + 0.5*rho(3)*u(3)**2;
-
+			
 			do i=1, 2
 				rdx = i+1
 				call sigma(xc(rdx), A, dAdx, alpha)
@@ -42,6 +40,11 @@
 				u(i) = q(rdx,2)/rho(rdx-1)/A;
 				p(i) = (q(rdx,3)/A - 0.5*rho(rdx-1)*u(rdx-1)*u(rdx-1))*(gamma-1);
 			end do
+
+			rho(3) = rho(2);
+			u(3) = u(2);
+			p(3) = pout + 0.5*rho(3)*u(3)**2;
+
 		else
 			do i=1, 3
 				call sigma(xc(i), A, dAdx, alpha)

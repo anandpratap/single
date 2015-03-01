@@ -1,15 +1,15 @@
-subroutine write_data(nc, xc, q)
+subroutine write_data(nc, xc, q, alpha)
 	use params_global
 	implicit none
 	integer, intent(in) :: nc
 	real, dimension(nc), intent(in) :: xc
 	real, dimension(nc, 3), intent(in) :: q
-
-
+	real, intent(in) :: alpha
+ 
 	real, dimension(nc) :: rho, u, p
 	integer :: i
 
-	call primvars(nc, xc, q, rho, u, p, 1.0)
+	call primvars(nc, xc, q, rho, u, p, alpha)
 	open(unit=log_data, file='data.dat', status='unknown', form='formatted')
 	write(log_data, *) "TITLE = ""Single Solution FIle"""
 	write(log_data, *) "VARIABLES = ""X"" ""rho"" ""u"" ""p"" ""M"""

@@ -17,15 +17,9 @@
 		rat = T/To
 		rho(1) = rhoo*rat**(1/(gamma-1))
 		p(1) = po*rat**(gamma/(gamma-1))
-	!	if(u(nc+1)/sqrt(gamma*p(nc+1)/rho(nc+1)) .le. 1) then
-			rho(nc+2) = rho(nc+1);
-			u(nc+2) = u(nc+1);
-			p(nc+2) = pout + 0.5*rho(nc+2)*u(nc+2)**2;
-	!	else
-	!		rho(nc+2) = rho(nc+1);
-	!		u(nc+2) = u(nc+1);
-	!		p(nc+2) = p(nc+1);
-	!	end if
-		
+	
+		rho(nc+2) = rho(nc+1);
+		u(nc+2) = u(nc+1);
+		p(nc+2) = pout + 0.5*rho(nc+2)*u(nc+2)**2;
 
 	end subroutine boundary_conditions

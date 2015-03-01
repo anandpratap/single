@@ -1,4 +1,5 @@
 	subroutine calc_residual(nc, x, xc, dxc, q, res, alpha)
+		use omp_lib
 		use params_global
 		implicit none
 		integer, intent(in) :: nc
@@ -10,7 +11,8 @@
 		
 		integer :: i
 		res(:,:) = 0.0
-
+		
+!$omp parallel do
 		do i=1, nc
 			if (i .eq. 1) then
 				call residual(nc, i, x(i:i+1), xc(1:3), dxc(1:3), q(1:3,:), res(i,:), alpha)
@@ -20,7 +22,7 @@
 				call residual(nc, i, x(i:i+1), xc(i-1:i+1), dxc(i-1:i+1), q(i-1:i+1,:), res(i,:), alpha)
 			end if
 		end do
-		
+!$omp end parallel do
 
 	end subroutine calc_residual
 
@@ -113,7 +115,6 @@
 				qb(:,:) = 0.0
 			end do
 		end do
-
 
 	end subroutine calc_residual_jacobian
 

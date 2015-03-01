@@ -1,14 +1,14 @@
 FC = ifort
 CC = icc
 CCFLAGS = -c
-FCFLAGS = -r8 -L/usr/lib/ -llapack -lblas -debug -traceback -check bounds -g
+FCFLAGS = -r8 -L/usr/lib/ -llapack -lblas -openmp 
 OBJECTS = modules.o main.o step.o primvars.o primvars_.o residual.o compute_dt.o sigma.o roeflux.o reconstruct.o io.o calc_residual.o objective.o\
-	diffsizes.o roeflux_bq.o residual_bq.o objective_bq.o primvars_bq.o sigma_bq.o adBuffer.o adStack.o
+	initialize.o metrics.o sensitivity.o adjoint.o diffsizes.o roeflux_bq.o residual_bq.o objective_bq.o primvars_bq.o sigma_bq.o adBuffer.o adStack.o
 BIN = bin/
 SRC = src/
 
 mflame:$(OBJECTS)
-	$(FC) -o single $(OBJECTS) -L/usr/lib/ -llapack -lblas -g -traceback -debug
+	$(FC) -o single $(OBJECTS) -L/usr/lib/ -llapack -lblas -openmp
 	mv single bin/.
 
 TPN             = /home/anandps/local/tapenade3.6/bin/tapenade
@@ -34,4 +34,7 @@ adjoint:
 
 
 clean:
-	rm *.o bin/single *.mod *_bq* *_cb* src/*_bqv* src/*_bq* *_cd*
+	rm *.o bin/single *.mod 
+
+clean_adjoint:
+	rm *_bq* *_cb* src/*_bq*
