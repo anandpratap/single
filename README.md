@@ -5,6 +5,11 @@
 - Adjoint and sensitivity calculations for an arbitary objective function
 - OpenMP support, except for the jacobian calculations, which is work in progress
 
+## Building
+- Make sure all the path variables in the Makefile are set correctly
+- Generate differentiated subroutine using `make adjoint` and then compile using `make`. You might have to create in `bin` directory in the main folder
+- Use `make clean` to clean all the object files, and `make clean_adjoint` to clean adjoint related files
+
 ## Lessons Learned
 - Efficient implementation of a tapenade based solver from scratch, using local stencils to minimize computations
 - Nitty gritty details of backward mode of automatic differentation using tapenade
