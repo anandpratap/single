@@ -35,7 +35,7 @@
 		
 		! solve system of equation
 		call dgesv(3*nc, 1, jac, 3*nc, pivot, b, 3*nc, ok)
-	
+
 		! delta q
 		do j=1, 3
 			do i=1, nc
