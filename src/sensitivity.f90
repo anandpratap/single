@@ -26,7 +26,8 @@
 		alphab = 1.0
 		call objective(nc, xc, q, obj, alpha)
 		call objective_bq(nc, xc, q, qb, obj, objb, alpha, alphab)
-
+		write(11, *) obj
+		write(11, *) alphab + sum(psi*dRdalpha)
 		print *,'dJdAlpha: ', alphab + sum(psi*dRdalpha)
 
 	end subroutine sensitivity
