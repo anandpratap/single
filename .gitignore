@@ -3,3 +3,10 @@
 *.mod
 single
 *~
+*run_*
+*.png
+*.pdf
+*.dat
+fort.*
+*.pyc
+*.msg
