@@ -2,7 +2,7 @@
 
 ## Features
 - Uses backward Newton with exact full jacobian, the jacobian is *efficiently* calculated using code generation by Tapenade
-- Adjoint and sensitivity calculations for an arbitary objective function
+- Adjoint and sensitivity calculations for an arbitrary objective function
 - OpenMP support, except for the jacobian calculations, which is work in progress
 
 ## Building
