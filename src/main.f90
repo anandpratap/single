@@ -1,5 +1,4 @@
 	program single
-		use omp_lib
 		use params_global
 		implicit none
 
@@ -7,9 +6,12 @@
 		real:: l, t, dt, l2norm, alpha
 		real, dimension(:), allocatable :: x, xc, dxc, psi
 		real, dimension(:, :), allocatable :: q
+		character(len=32) :: arg
 
-		alpha = 1.0+1e-6
-		n = 1001
+		call getarg(1, arg)
+		read(arg, *) alpha
+		print *,  'alpha = ', alpha
+		n = 101
 		nc = n - 1
 		l = 1.0
 		allocate(x(n), xc(nc), dxc(nc))
@@ -27,7 +29,7 @@
 				call write_data(nc, xc, q, alpha)
 			end if
 			
-			if(l2norm .le. 1e-6) then
+			if(l2norm .le. 1e-9) then
 				call write_data(nc, xc, q, alpha)
 				exit
 			end if
@@ -42,7 +44,6 @@
 			call sensitivity(nc, x, xc, dxc, q, alpha, psi)
 			deallocate(psi)
 		end if
-
 		deallocate(q)
 		deallocate(x, xc, dxc)
 	end program single
